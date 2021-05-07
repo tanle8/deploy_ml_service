@@ -7,23 +7,21 @@ For more information on this file, see
 https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/
 """
 
-from apps.ml.registry import MLRegistry
 from apps.ml.income_classifier.random_forest import RandomForestClassifier
+from apps.ml.registry import MLRegistry
 import inspect
 import os
 from django.core.wsgi import get_wsgi_application
-
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server.settings')
 application = get_wsgi_application()
 
-
 # ML registry
-
 
 try:
     registry = MLRegistry()  # create ML registry
-    rf = RandomForestClassifier()   # Random Forest Classifier
+    # Random Forest classifier
+    rf = RandomForestClassifier()
+    # add to ML registry
     registry.add_algorithm(endpoint_name="income_classifier",
                            algorithm_object=rf,
                            algorithm_name="random forest",
